@@ -1,9 +1,21 @@
-﻿@{
-    ViewBag.Title = "Witamy!";
+﻿@model AspNetMvcTutorial.Models.Project
+
+<h3>Witamy na stronie głównej platformy edukacyjnej ELE!</h3>
+<br />
+<b>Dostępne kursy:</b>
+<br />
+<br />
+
+<div class="courseHeader">
+    <span class="courseName">Nazwa kursu</span>
+    <span class="courseDuration">Czas trwania</span>
+</div>
+@foreach (var course in @Model.ProjectCourses)
+{
+    <div class="course">
+        <span class="courseName"><a href="/Course/Main/@course.ID" class="courseLink">@course.Name</a></span>
+        <span class="courseDuration">@course.EstimatedDuration<span>h</span></span>
+    </div>
 }
-
-<b>Witamy na stronie głównej kursu!</b>
-
-Kurs przeznaczony jest dla programistów znających podstawy C# i .NET, pragnących poznać wzorzec MVC oraz oparte na nim najnowsze środowisko Microsoft ASP.NET MVC służące do rozwijania aplikacji internetowych.
 
 

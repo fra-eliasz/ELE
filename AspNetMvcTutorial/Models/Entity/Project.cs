@@ -20,7 +20,6 @@ namespace AspNetMvcTutorial.Models
         [Required]
         public List<Course> ProjectCourses { set; get; }
 
-
         public Project(String projName)
         {
             this.Name = projName;

@@ -12,7 +12,7 @@ namespace AspNetMvcTutorial.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ScaffoldColumn(false)]
-        private Int16 ID { get; set; }
+        public Int16 ID { get; set; }
 
         [Required(ErrorMessage="Wymagane jest podanie nazwy tematu")]
         public String Name { get; set; }
@@ -24,6 +24,13 @@ namespace AspNetMvcTutorial.Models
         {
             this.Name = subjectName;
         }
+
+        public SubjectBase(Int16 ID, String subjectName)
+        {
+            this.ID = ID;
+            this.Name = subjectName;
+        }
+
         
     }
 }

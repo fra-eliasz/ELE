@@ -12,10 +12,14 @@ namespace AspNetMvcTutorial.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ScaffoldColumn(false)]
-        private Int16 ID { get; set; }
+        public Int16 ID { get; set; }
 
         [Required(ErrorMessage = "Wymagane jest podanie nazwy kursu")]
         public String Name { get; set; }
+        
+        public String Description { get; set; }
+
+        public Int16 EstimatedDuration;
 
         [Required(ErrorMessage = "Wymagane jest przypisanie co najmniej jednego modułu do kursu")]
         public List<Module> CourseModules { get; set; }
@@ -24,9 +28,6 @@ namespace AspNetMvcTutorial.Models
         {
             this.Name = course;
         }
-
-        
-        
 
         
     }

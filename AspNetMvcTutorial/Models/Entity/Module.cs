@@ -12,7 +12,7 @@ namespace AspNetMvcTutorial.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [ScaffoldColumn(false)]
-        private Int16 ID { get; set; }
+        public Int16 ID { get; set; }
 
         [Required(ErrorMessage = "Wymagane jest podanie nazwy modułu")]
         public String Name { get; set; }

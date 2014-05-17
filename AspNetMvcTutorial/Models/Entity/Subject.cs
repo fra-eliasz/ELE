@@ -11,6 +11,12 @@ namespace AspNetMvcTutorial.Models
             : base(name)
         {
         }
+
+        public Subject(Int16 ID, String name)
+            : base(ID, name)
+        {
+        }
+
         
         Test SubjectTest { set; get; } 
     }

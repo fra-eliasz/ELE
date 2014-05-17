@@ -1,0 +1,32 @@
+﻿
+.course, .item {    
+    color: teal;
+    padding-top: 3px;
+}
+
+.courseLink, .courseLink:link, .courseLink:visited, courseLink:active,
+.itemLink, .itemLink:link, .itemLink:visited, .itemLink:active {
+    color: teal;    
+    text-decoration: none;    
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.courseLink:hover, .itemLink:hover {
+    /* color: navy; */
+    text-decoration: underline;    
+}
+
+.courseHeader, .itemHeader {
+    color: orange;    
+}
+
+.courseName, .itemName {
+    display: inline-block;
+    width: 400px;
+}
+
+.courseDuration {
+    display: inline-block;
+    width: 200px;
+}

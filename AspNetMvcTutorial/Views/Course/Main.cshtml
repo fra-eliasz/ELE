@@ -1,0 +1,19 @@
+﻿@model AspNetMvcTutorial.Models.Course
+
+<h3>Kurs: "@Model.Name"</h3>
+<br />
+<b>Wybierz moduł:</b>
+<br />
+<br />
+
+<div class="itemHeader">
+    <span class="itemName">Nazwa modułu</span>    
+</div>
+@foreach (var module in @Model.CourseModules)
+{
+    <div class="item">
+        <span class="itemName"><a href="/Course/Module/@module.ID" class="itemLink">@module.Name</a></span>        
+    </div>
+}
+
+

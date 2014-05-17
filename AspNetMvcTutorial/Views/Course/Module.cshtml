@@ -1,0 +1,22 @@
+﻿@model AspNetMvcTutorial.Models.Module
+
+<h3>Kurs: "@ViewBag.CourseName"</h3>
+<br />
+<b>Moduł: "@Model.Name"</b>
+<br />
+<br />
+<b>Wybierz temat:</b>
+<br />
+<br />
+
+<div class="itemHeader">
+    <span class="itemName">Temat</span>    
+</div>
+@foreach (var subject in @Model.ModuleSubjects)
+{
+    <div class="item">
+        <span class="itemName"><a href="/Course/Subject/@subject.ID" class="itemLink">@subject.Name</a></span>        
+    </div>
+}
+
+

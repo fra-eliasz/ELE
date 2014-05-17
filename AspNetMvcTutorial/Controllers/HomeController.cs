@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AspNetMvcTutorial.Models;
 
 namespace AspNetMvcTutorial.Controllers
 {
@@ -12,9 +13,10 @@ namespace AspNetMvcTutorial.Controllers
         // GET: /Home/
 
         public ActionResult Index()
-        {
-            ViewBag.Title = "Witamy!";
-            return View();
+        {            
+            ViewBag.Title = "Platforma edukacyjna ELE";
+            Project project = ProjectFactory.CreateProject();
+            return View("Index", project);
         }
 
         public ActionResult About()
