@@ -14,6 +14,9 @@ namespace AspNetMvcTutorial.Models
         [ScaffoldColumn(false)]
         public Int16 ID { get; set; }
 
+        [Required(ErrorMessage = "Wymagane jest podanie numeru modułu")]
+        public Int16 Number { get; set; }
+
         [Required(ErrorMessage = "Wymagane jest podanie nazwy kursu")]
         public String Name { get; set; }
         
@@ -24,8 +27,9 @@ namespace AspNetMvcTutorial.Models
         [Required(ErrorMessage = "Wymagane jest przypisanie co najmniej jednego modułu do kursu")]
         public List<Module> CourseModules { get; set; }
 
-        public Course(String course)
+        public Course(Int16 number, String course)
         {
+            this.Number = number;
             this.Name = course;
         }
 

@@ -234,6 +234,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Course\Main.cshtml" />
     <Content Include="Views\Course\Module.cshtml" />
+    <Content Include="Views\Course\Subject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

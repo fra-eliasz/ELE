@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AspNetMvcTutorial.Models
 {
-    class Answer
+    public class Answer
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -15,10 +15,10 @@ namespace AspNetMvcTutorial.Models
         Int32 ID;
 
         [Required]
-        String Name { set; get; }
+        public String Name { set; get; }
 
         [Required]
-        String AnswerText { set; get; }
+        public String AnswerText { set; get; }
 
         [Required]
         Boolean Correct { get; set; }

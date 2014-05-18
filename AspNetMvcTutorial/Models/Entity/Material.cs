@@ -9,8 +9,8 @@ namespace AspNetMvcTutorial.Models
 {
     public class Material: MaterialBase
     {
-        public Material(String materialName, String materialDesc, String materialBody) :
-            base(materialName, materialDesc, materialBody)
+        public Material(Int16 materialNumber, String materialName, String materialDesc, String materialBody) :
+            base(materialNumber, materialName, materialDesc, materialBody)
         {            
         }
 

@@ -23,7 +23,7 @@ namespace AspNetMvcTutorial.Models
         TestType TestType { set; get; }
 
         [Required]
-        List<Quiz> TestQuizzes { set; get; }
+        public List<Quiz> TestQuizzes { set; get; }
         
         Int16 Score { set; get; }
         

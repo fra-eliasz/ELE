@@ -14,29 +14,35 @@ namespace AspNetMvcTutorial.Models
         [ScaffoldColumn(false)]
         Int16 ID { get; set; }
 
-        [Required(ErrorMessage = "Material Name is required")]
-        String Name { get; set; }
+        [Required(ErrorMessage = "Wymagane jest podanie numeru materia³u")]
+        public Int16 Number { get; set; }
 
-        [Required(ErrorMessage = "Material Description is required")]
-        String Description { get; set; }
+        [Required(ErrorMessage = "Wymagane jest podanie nazwy materia³u")]
+        public String Name { get; set; }
 
-        [Required(ErrorMessage = "Material Body is required")]
-        String MaterialBody { get; set; }
+        [Required(ErrorMessage = "Wymagane jest podanie opisu materia³u")]
+        public String Description { get; set; }
 
-        MaterialType Type { get; set; }
+        [Required(ErrorMessage = "Wymagane jest podanie treœci materia³u")]
+        public String MaterialContent { get; set; }
 
-        public MaterialBase(String materialName, String materialDesc, String materialBody)
+        public MaterialType Type { get; set; }
+
+        public MaterialBase(Int16 number, String materialName, String materialDesc, String materialContent)
         {
+            this.Number = number;
             this.Name = materialName;
             this.Description = materialDesc;
-            this.MaterialBody = materialBody;
+            this.MaterialContent = materialContent;
+            this.Type = MaterialType.Static;
         }
 
-        public MaterialBase(String materialName, String materialDesc, String materialBody, MaterialType materialType)
+        public MaterialBase(Int16 number, String materialName, String materialDesc, String materialContent, MaterialType materialType)
         {
+            this.Number = number;
             this.Name = materialName;
             this.Description = materialDesc;
-            this.MaterialBody = materialBody;
+            this.MaterialContent = materialContent;
             this.Type = materialType;
         }
 

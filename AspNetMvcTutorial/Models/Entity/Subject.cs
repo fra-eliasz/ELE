@@ -7,17 +7,17 @@ namespace AspNetMvcTutorial.Models
 {
     public class Subject : SubjectBase
     {
-        public Subject(String name)
-            : base(name)
+        public Subject(Int16 number, String name)
+            : base(number, name)
         {
         }
 
-        public Subject(Int16 ID, String name)
-            : base(ID, name)
+        public Subject(Int16 ID, Int16 number, String name)
+            : base(ID, number, name)
         {
         }
 
         
-        Test SubjectTest { set; get; } 
+        public Test SubjectTest { set; get; } 
     }
 }

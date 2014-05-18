@@ -1,0 +1,45 @@
+﻿@model AspNetMvcTutorial.Models.Subject
+
+<h3>Kurs: <a href="/Course/Main/@ViewBag.CourseId" class="itemLink navy">@ViewBag.CourseName</a></h3>
+<br />
+<b>Moduł: <a href="/Course/Module/@ViewBag.ModuleId" class="itemLink navy">@ViewBag.ModuleName</a></b>
+<br />
+<br />
+@{
+    var prevMaterialLink = ViewBag.MaterialNumber == 1 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">&lt;&lt;</a>", Model.ID, ViewBag.MaterialNumber - 1);
+    var nextMaterialLink = ViewBag.MaterialNumber == ViewBag.MaterialCount + 1 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">{2}</a>", Model.ID, ViewBag.MaterialNumber + 1, ViewBag.MaterialNumber == ViewBag.MaterialCount ? "test" : "&gt;&gt;");
+    var prevSubjectLink = ViewBag.PrevSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">&lt;&lt;poprzedni temat</a>", ViewBag.PrevSubjectId, 1);
+    var nextSubjectLink = ViewBag.NextSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">następny temat&gt;&gt;</a>", ViewBag.NextSubjectId, 1);
+}
+@if (!@ViewBag.DoTest)
+{
+    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) @ViewBag.MaterialNumber/@ViewBag.MaterialCount @Html.Raw(@nextMaterialLink))</b><span class="subjectNavigation">@Html.Raw(@prevSubjectLink)&nbsp;&nbsp;@Html.Raw(nextSubjectLink)</span>
+    <br />
+    <br />
+
+    <div class="materialContent">
+        @Html.Raw(@ViewBag.Material.MaterialContent)
+    </div>
+}
+else {
+    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) Test)</b><span class="subjectNavigation">@Html.Raw(@prevSubjectLink)&nbsp;&nbsp;@Html.Raw(nextSubjectLink)</span>
+    <br />
+    <br />
+    if (@Model.SubjectTest != null) {
+        foreach(var quiz in @Model.SubjectTest.TestQuizzes) {
+            <div class="quizContent">
+                @Html.Raw(@quiz.Number + ". ")
+                @Html.Raw(@quiz.QuestionText)
+                <br /><br />
+                @foreach(var answer in quiz.Answers) {
+                    @Html.Raw(answer.Name + ". ")                  
+                    @Html.Raw(answer.AnswerText + " ")
+                    @Html.CheckBox(answer.Name)
+                    <br />
+                }
+                <br />            
+            </div>    
+        }   
+    }
+    <input type="button" style="font-size: 1em; font-weight: normal" value="Sprawdź wyniki" onclick="alert('Opcja w przygotowaniu');" />
+}

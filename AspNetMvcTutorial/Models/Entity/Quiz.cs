@@ -7,7 +7,7 @@ using System.Text;
 
 namespace AspNetMvcTutorial.Models
 {
-    class Quiz
+    public class Quiz
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -15,16 +15,20 @@ namespace AspNetMvcTutorial.Models
         Int32 ID;
 
         [Required]
-        String Name { set; get; }
+        public Int16 Number { set; get; }
 
         [Required]
-        String QuestionText { set; get; }
+        public String Name { set; get; }
 
         [Required]
-        List<Answer> Answers { set; get; }
+        public String QuestionText { set; get; }
 
-        public Quiz(String name, String questionText, List<Answer> answers)
+        [Required]
+        public List<Answer> Answers { set; get; }
+
+        public Quiz(Int16 number, String name, String questionText, List<Answer> answers)
         {
+            this.Number = number;
             this.Name = name;
             this.QuestionText = questionText;
             this.Answers = answers;

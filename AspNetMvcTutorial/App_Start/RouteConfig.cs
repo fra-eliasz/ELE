@@ -18,6 +18,12 @@ namespace AspNetMvcTutorial
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Extended",
+                url: "{controller}/{action}/{id}/{number}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, number = UrlParameter.Optional }
+            );
+
         }
     }
 }

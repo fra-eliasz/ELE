@@ -14,14 +14,18 @@ namespace AspNetMvcTutorial.Models
         [ScaffoldColumn(false)]
         public Int16 ID { get; set; }
 
+        [Required(ErrorMessage = "Wymagane jest podanie numeru modułu")]
+        public Int16 Number { get; set; }
+
         [Required(ErrorMessage = "Wymagane jest podanie nazwy modułu")]
         public String Name { get; set; }
 
         [Required(ErrorMessage = "Wymagane jest przypisanie przynajmniej jednego tematu do modułu")]
         public List<SubjectBase> ModuleSubjects { get; set; }
 
-        public Module(String name)
+        public Module(Int16 number, String name)
         {
+            this.Number = number;
             this.Name = name;
         }
 

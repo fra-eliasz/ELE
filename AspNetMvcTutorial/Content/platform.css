@@ -12,6 +12,10 @@
     padding-right: 0px;
 }
 
+.navy {
+    color: navy;
+}
+
 .courseLink:hover, .itemLink:hover {
     /* color: navy; */
     text-decoration: underline;    
@@ -29,4 +33,16 @@
 .courseDuration {
     display: inline-block;
     width: 200px;
+}
+ 
+.materialContent {    
+    background: white;
+    border: 1px dotted gray;
+    padding: 5px;
+}
+
+.subjectNavigation {
+    display: inline-block;
+    float: right; 
+    text-align: right;
 }
