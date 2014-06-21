@@ -9,7 +9,7 @@ namespace AspNetMvcTutorial.Models
     {
         private static Project project = null;
 
-        public static Project CreateProject()
+        public static Project getProject()
         {
             if (project == null)
             {
@@ -46,8 +46,13 @@ namespace AspNetMvcTutorial.Models
             model tworzenia aplikacji internetowych, oparty na architekturze MVC (Model-View-Controller).             
             ");
             s1.SubjectMaterials = new List<MaterialBase>() { mt };
-            Test test = new Test(s1.Name, 1, TestType.Subject);
-            Quiz q1 = new Quiz(1, "Lata wydania platform", "W jakich latach nastąpiło wydanie przez firmę Microsoft kolejnych kluczowych platform tworzenia aplikacji internetowych?", new List<Answer>() { new Answer("1", "1992, 2000, 2005", false), new Answer("2", "1996, 2002, 2008", true), new Answer("3","1996, 2000, 2008", false), new Answer("4", "1998, 2002, 2008", false) });
+            Test test = new Test(s1.Name, 1, TestType.Static);
+            Quiz q1 = new Quiz(1, "Lata wydania platform", "W jakich latach nastąpiło wydanie przez firmę Microsoft kolejnych kluczowych platform tworzenia aplikacji internetowych?", 
+                                    new List<Answer>() { new Answer("1", "1992, 2000, 2005", false), 
+                                                         new Answer("2", "1996, 2002, 2008", true), 
+                                                         new Answer("3","1996, 2000, 2008", false), 
+                                                         new Answer("4", "1998, 2002, 2008", false) });
+
             test.TestQuizzes = new List<Quiz>() { q1 };
             s1.SubjectTest = test;
             Subject s2 = new Subject(2, 2, "Architektura MVC");
@@ -66,8 +71,12 @@ namespace AspNetMvcTutorial.Models
             z poziomu interfejsu, wykonuje żądane przez nie operacje na modelu, a następnie zwraca rezultat tych operacji do widoku.            
             ");
             s2.SubjectMaterials = new List<MaterialBase>() { mt };
-            test = new Test(s2.Name, 1, TestType.Subject);
-            q1 = new Quiz(1, "Pytanie o funkcję kontrolera", "Która warstwa architektury MVC odpowiada za reagowanie na akcje użytkownika?", new List<Answer>() { new Answer("1", "Model", false), new Answer("2", "Kontroler", true), new Answer("3", "Widok", false) });
+            test = new Test(s2.Name, 1, TestType.Static);
+            q1 = new Quiz(1, "Pytanie o funkcję kontrolera", "Która warstwa architektury MVC odpowiada za reagowanie na akcje użytkownika?", 
+                            new List<Answer>() { new Answer("1", "Model", false), 
+                                                new Answer("2", "Kontroler", true), 
+                                                new Answer("3", "Widok", false) });
+
             test.TestQuizzes = new List<Quiz>() { q1 };
             s2.SubjectTest = test;
 

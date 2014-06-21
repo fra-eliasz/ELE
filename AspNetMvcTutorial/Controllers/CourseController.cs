@@ -9,13 +9,26 @@ namespace AspNetMvcTutorial.Controllers
 {
     public class CourseController : Controller
     {
-        //
-        // GET: /Home/
+        Project project = ProjectFactory.getProject();
+        Int16 materialNumber;
+        Int16 courseId;
+        Int16 moduleId;
+
+        Course course;
+        Module module;
+        Subject subject;
+
+        public CourseController()
+        {
+            materialNumber = -1;
+            courseId = -1;
+            moduleId = -1;
+        }
 
         public ActionResult Main(Int16 id)
         {
             Session["courseId"] = id;
-            Project project = ProjectFactory.CreateProject();
+            Project project = ProjectFactory.getProject();
             Course course = project.ProjectCourses.FirstOrDefault(c => c.ID == id);
 
             ViewBag.Title = "Kurs \"" + course.Name + "\"";
@@ -26,12 +39,13 @@ namespace AspNetMvcTutorial.Controllers
         public ActionResult Module(Int16 id)
         {
             Session["moduleId"] = id;
-            Project project = ProjectFactory.CreateProject();
-            Int16 courseId = (Int16)Session["courseId"];
-            Course course = project.ProjectCourses.FirstOrDefault(c => c.ID == courseId);
+            courseId = (Int16)Session["courseId"];
+
+            course = project.ProjectCourses.FirstOrDefault(c => c.ID == courseId);
             ViewBag.CourseName = course.Name;
             ViewBag.CourseId = course.ID;
-            Module module = course.CourseModules.FirstOrDefault(m => m.ID == id);
+            
+            module = course.CourseModules.FirstOrDefault(m => m.ID == id);
 
             ViewBag.Title = "Kurs \"" + course.Name + "\"";
 
@@ -40,21 +54,20 @@ namespace AspNetMvcTutorial.Controllers
 
         public ActionResult Subject(Int16 id, Int16 number)
         {
-            Int16 materialNumber = number;
-                
-            Project project = ProjectFactory.CreateProject();
+            materialNumber = number;
+            courseId = (Int16)Session["courseId"];
 
-            Int16 courseId = (Int16)Session["courseId"];
-            Course course = project.ProjectCourses.FirstOrDefault(c => c.ID == courseId);
+            course = project.ProjectCourses.FirstOrDefault(c => c.ID == courseId);
             ViewBag.CourseName = course.Name;
             ViewBag.CourseId = course.ID;
 
-            Int16 moduleId = (Int16)Session["moduleId"];
-            Module module = course.CourseModules.FirstOrDefault(m => m.ID == moduleId);
+            moduleId = (Int16)Session["moduleId"];
+
+            module = course.CourseModules.FirstOrDefault(m => m.ID == moduleId);
             ViewBag.ModuleName = module.Name;
             ViewBag.ModuleId = module.ID;
 
-            Subject subject = (Subject)module.ModuleSubjects.FirstOrDefault(s => s.ID == id);
+            subject = (Subject)module.ModuleSubjects.FirstOrDefault(s => s.ID == id);
             ViewBag.PrevSubjectId = subject.Number == 1 ? 0 : module.ModuleSubjects.FirstOrDefault<SubjectBase>(s => s.Number == subject.Number - 1).ID;
             ViewBag.NextSubjectId = subject.Number == module.ModuleSubjects.Count() ? 0 : module.ModuleSubjects.FirstOrDefault<SubjectBase>(s => s.Number == subject.Number + 1).ID;
             ViewBag.MaterialNumber = materialNumber;
@@ -67,7 +80,22 @@ namespace AspNetMvcTutorial.Controllers
             return View("Subject", subject);
         }
 
+        [HttpGet]
+        public ActionResult RenderTest(Test subjectTest)
+        {
+            if(subjectTest.TestType.Equals(TestType.Static))
+                return PartialView("Quizes/StaticQuiz",subjectTest);
 
+            else
+                return PartialView("Quizes/DragAndDropQuiz", subjectTest);
+        }
+
+        [HttpPost]
+        public ActionResult AnswerQuiz()
+        {
+
+            return Redirect("/");
+        }
 
     }
 }

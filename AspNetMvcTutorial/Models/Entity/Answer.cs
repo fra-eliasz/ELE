@@ -21,7 +21,7 @@ namespace AspNetMvcTutorial.Models
         public String AnswerText { set; get; }
 
         [Required]
-        Boolean Correct { get; set; }
+        public Boolean Correct { get; set; }
 
         public Answer(String name, String answerText, Boolean correct)
         {

@@ -13,33 +13,20 @@
 }
 @if (!@ViewBag.DoTest)
 {
-    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) @ViewBag.MaterialNumber/@ViewBag.MaterialCount @Html.Raw(@nextMaterialLink))</b><span class="subjectNavigation">@Html.Raw(@prevSubjectLink)&nbsp;&nbsp;@Html.Raw(nextSubjectLink)</span>
+    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) @ViewBag.MaterialNumber/@ViewBag.MaterialCount @Html.Raw(@nextMaterialLink))</b>
+    <span class="subjectNavigation">@Html.Raw(@prevSubjectLink)&nbsp;&nbsp;@Html.Raw(nextSubjectLink)</span>
     <br />
     <br />
-
+    <p>Test to jest test</p>
     <div class="materialContent">
         @Html.Raw(@ViewBag.Material.MaterialContent)
     </div>
 }
-else {
-    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) Test)</b><span class="subjectNavigation">@Html.Raw(@prevSubjectLink)&nbsp;&nbsp;@Html.Raw(nextSubjectLink)</span>
-    <br />
-    <br />
-    if (@Model.SubjectTest != null) {
-        foreach(var quiz in @Model.SubjectTest.TestQuizzes) {
-            <div class="quizContent">
-                @Html.Raw(@quiz.Number + ". ")
-                @Html.Raw(@quiz.QuestionText)
-                <br /><br />
-                @foreach(var answer in quiz.Answers) {
-                    @Html.Raw(answer.Name + ". ")                  
-                    @Html.Raw(answer.AnswerText + " ")
-                    @Html.CheckBox(answer.Name)
-                    <br />
-                }
-                <br />            
-            </div>    
-        }   
-    }
-    <input type="button" style="font-size: 1em; font-weight: normal" value="Sprawdź wyniki" onclick="alert('Opcja w przygotowaniu');" />
+else
+{
+    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) Test)</b>
+    <span class="subjectNavigation">@Html.Raw(@prevSubjectLink)&nbsp;&nbsp;@Html.Raw(nextSubjectLink)</span>
+
+    { Html.RenderAction("RenderTest", "Course", new { subjectTest = Model.SubjectTest }); }
+
 }
