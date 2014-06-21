@@ -16,7 +16,7 @@
                             @for(var i = 0; i<quiz.Answers.Count ; i ++) {
                                 @Html.Raw(quiz.Answers[i].Name + ". ")                  
                                 @Html.Raw(quiz.Answers[i].AnswerText + " ")
-                                @Html.ValuedCheckBox("userAnser", i)
+                                @Html.ValuedCheckBox("userAnswer", i.ToString())
                                 <br />
                             }
                             <br />            
