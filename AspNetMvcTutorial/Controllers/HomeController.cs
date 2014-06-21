@@ -15,7 +15,7 @@ namespace AspNetMvcTutorial.Controllers
         public ActionResult Index()
         {            
             ViewBag.Title = "Platforma edukacyjna ELE";
-            Project project = ProjectFactory.CreateProject();
+            Project project = ProjectFactory.getProject();
             return View("Index", project);
         }
 

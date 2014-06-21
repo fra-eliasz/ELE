@@ -14,13 +14,13 @@ namespace AspNetMvcTutorial.Models
         Int32 ID;
 
         [Required]
-        String Name { set; get; }
+        public String Name { set; get; }
 
         [Required]
-        Int16 TestGroupNo { set; get; }
+        public Int16 TestGroupNo { set; get; }
 
         [Required]
-        TestType TestType { set; get; }
+        public TestType TestType { set; get; }
 
         [Required]
         public List<Quiz> TestQuizzes { set; get; }

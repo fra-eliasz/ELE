@@ -9,6 +9,7 @@ namespace AspNetMvcTutorial.Models
     {
         Static = 1,
         Course, 
-        Subject
+        Subject,
+        DragAndDrop
     }
 }
