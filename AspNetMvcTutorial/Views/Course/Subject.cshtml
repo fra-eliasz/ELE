@@ -6,18 +6,21 @@
 <br />
 <br />
 @{
-    var prevMaterialLink = ViewBag.MaterialNumber == 1 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">&lt;&lt;</a>", Model.ID, ViewBag.MaterialNumber - 1);
-    var nextMaterialLink = ViewBag.MaterialNumber == ViewBag.MaterialCount + 1 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">{2}</a>", Model.ID, ViewBag.MaterialNumber + 1, ViewBag.MaterialNumber == ViewBag.MaterialCount ? "test" : "&gt;&gt;");
-    var prevSubjectLink = ViewBag.PrevSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">&lt;&lt;poprzedni temat</a>", ViewBag.PrevSubjectId, 1);
-    var nextSubjectLink = ViewBag.NextSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">następny temat&gt;&gt;</a>", ViewBag.NextSubjectId, 1);
+    var nextArrow = "<img src=\"/Content/images/next.png\" />";
+    var prevArrow = "<img src=\"/Content/images/back.png\" />";
+    bool onLastMaterial = ViewBag.MaterialNumber == ViewBag.MaterialCount;
+    bool onTest = ViewBag.MaterialNumber == ViewBag.MaterialCount + 1;    
+    var prevMaterialLink = ViewBag.MaterialNumber == 1 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">"+prevArrow+"</a>", Model.ID, ViewBag.MaterialNumber - 1);
+    var nextMaterialLink = (onLastMaterial && Model.SubjectTest == null || onTest) ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">{2}</a>", Model.ID, ViewBag.MaterialNumber + 1, onLastMaterial ? "test" : nextArrow);    
+    var prevSubjectLink = ViewBag.PrevSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">"+prevArrow+" poprzedni temat</a>", ViewBag.PrevSubjectId, 1);
+    var nextSubjectLink = ViewBag.NextSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">następny temat "+nextArrow+"</a>", ViewBag.NextSubjectId, 1);
 }
 @if (!@ViewBag.DoTest)
 {
-    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) @ViewBag.MaterialNumber/@ViewBag.MaterialCount @Html.Raw(@nextMaterialLink))</b>
+    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) @ViewBag.MaterialNumber/@ViewBag.MaterialCount @Html.Raw(@nextMaterialLink) )</b>
     <span class="subjectNavigation">@Html.Raw(@prevSubjectLink)&nbsp;&nbsp;@Html.Raw(nextSubjectLink)</span>
     <br />
-    <br />
-    <p>Test to jest test</p>
+    <br />    
     <div class="materialContent">
         @Html.Raw(@ViewBag.Material.MaterialContent)
     </div>

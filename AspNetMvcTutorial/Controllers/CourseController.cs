@@ -72,7 +72,7 @@ namespace AspNetMvcTutorial.Controllers
             ViewBag.NextSubjectId = subject.Number == module.ModuleSubjects.Count() ? 0 : module.ModuleSubjects.FirstOrDefault<SubjectBase>(s => s.Number == subject.Number + 1).ID;
             ViewBag.MaterialNumber = materialNumber;
             ViewBag.MaterialCount = subject.SubjectMaterials.Count();
-            ViewBag.Material = subject.SubjectMaterials.FirstOrDefault(m => m.Number == materialNumber);
+            ViewBag.Material = subject.SubjectMaterials.FirstOrDefault(m => m.Number == materialNumber);            
             ViewBag.DoTest = ViewBag.MaterialNumber == ViewBag.MaterialCount + 1;
 
             ViewBag.Title = "Kurs \"" + course.Name + "\"";
