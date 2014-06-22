@@ -7,15 +7,16 @@
 <br />
 @{
     var prevMaterialLink = ViewBag.MaterialNumber == 1 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">&lt;&lt;</a>", Model.ID, ViewBag.MaterialNumber - 1);
-    var nextMaterialLink = ViewBag.MaterialNumber == ViewBag.MaterialCount + 1 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""button"">{2}</a>", Model.ID, ViewBag.MaterialNumber + 1, ViewBag.MaterialNumber == ViewBag.MaterialCount ? "Test wiedzy" : "&gt;&gt;");
+    var nextMaterialLink = ViewBag.MaterialNumber + 1< ViewBag.MaterialCount ? String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">&gt;&gt;</a>", Model.ID, ViewBag.MaterialNumber + 1) : "" ;
+    var testMaterial = ViewBag.MaterialNumber == ViewBag.MaterialCount + 1 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""button"">{2}</a>", Model.ID, ViewBag.MaterialNumber + 1, ViewBag.MaterialNumber == ViewBag.MaterialCount ? "Test wiedzy" : "&gt;&gt;");
     var prevSubjectLink = ViewBag.PrevSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">&lt;&lt;poprzedni temat</a>", ViewBag.PrevSubjectId, 1);
-    var nextSubjectLink = ViewBag.NextSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">następny temat</a>", ViewBag.NextSubjectId, 1);
+    var nextSubjectLink = ViewBag.NextSubjectId == 0 ? "" : String.Format(@"<a href=""/Course/Subject/{0}/{1}"" class=""itemLink"">następny temat&gt;&gt;</a>", ViewBag.NextSubjectId, 1);
 }
 @if (!@ViewBag.DoTest)
 {
-    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) @ViewBag.MaterialNumber/@ViewBag.MaterialCount)</b>
+    <b>Temat: @Model.Name (@Html.Raw(@prevMaterialLink) @ViewBag.MaterialNumber/@ViewBag.MaterialCount  @prevMaterialLink)</b>
     <span class="subjectNavigation">@Html.Raw(@prevSubjectLink)&nbsp;&nbsp;@Html.Raw(nextSubjectLink)</span>
-    @Html.Raw(@nextMaterialLink)
+    @Html.Raw(@testMaterial)
     <br />
     <br />
     <div class="materialContent">

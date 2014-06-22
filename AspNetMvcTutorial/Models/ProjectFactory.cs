@@ -57,7 +57,13 @@ namespace AspNetMvcTutorial.Models
                 new List<Answer>() { new Answer("1", "Model", false), 
                                                 new Answer("2", "Kontroler", true), 
                                                 new Answer("3", "Widok", false) });
-            test.QuizeList = new List<Quiz>() { q1, q2 };
+            Quiz q3 = new Quiz(3, "Lorem ipsum dolor sit amet, consectetu [Two correct answers]", "Vestibulum non velit in odio condimentum molestie in vel diam. Ut ultrices ac magna quis vulputate. <br />"+
+            "Fusce a risus eu diam cursus vestibulum. Fusce imperdiet neque ac magna gravida accumsan. Suspendisse laoreet varius urna, ?",
+                                    new List<Answer>() { new Answer("1", "1992", false), 
+                                                         new Answer("2", "2005", true), 
+                                                         new Answer("3", "1996", false), 
+                                                         new Answer("4", "2008", true) });
+            test.QuizeList = new List<Quiz>() { q1, q2, q3 };
 
             s1.SubjectTest = test;
             Subject s2 = new Subject(2, 2, "Architektura MVC");
@@ -81,7 +87,7 @@ namespace AspNetMvcTutorial.Models
                             new List<Answer>() { new Answer("1", "Model", false), 
                                                 new Answer("2", "Kontroler", true), 
                                                 new Answer("3", "Widok", false) });
-            test.QuizeList = new List<Quiz>() { q1 };
+            test.QuizeList = new List<Quiz>() { q1, q3};
             
             s2.SubjectTest = test;
 

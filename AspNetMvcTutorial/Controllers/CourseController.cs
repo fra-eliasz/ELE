@@ -102,51 +102,12 @@ namespace AspNetMvcTutorial.Controllers
             else
                 materialNumber = ((Int16)Session["materialNumber"]);
         }
-        
-        private void setViewBag_Quiz()
-        {
-            ViewBag.prevQuiz = (subject.SubjectTest.QuizeList.Count > 1 ) && (((Int16)currentQuizId - 1) >= 0) ? 
-                                            ((Int16)currentQuizId - 1).ToString() : "";
-            ViewBag.nextQuiz = (subject.SubjectTest.QuizeList.Count > 1) && (((Int16)currentQuizId + 1) < subject.SubjectTest.QuizeList.Count) ? 
-                                            ((Int16)currentQuizId + 1).ToString() : ""; 
-            ViewBag.QuizName = subject.SubjectTest.QuizeList[currentQuizId].Name;
-            ViewBag.QuestionText = subject.SubjectTest.QuizeList[currentQuizId].QuestionText;
-            ViewBag.MaterialNumber = materialNumber;
-            ViewBag.currentQuizID = currentQuizId;
-        }
-               
-        public ActionResult RenderQuizPage(Int16 subjectID, Int16 number, Int16 quizId)
-        {
-            materialNumber = number;
-            setCourseModulSubject(subjectID);
-            currentQuizId = quizId;
-            setViewBag();
-            setViewBag_Quiz();
-
-            Session["quizId"] = currentQuizId;
-
-            return View("Subject", subject);
-        }
 
         [HttpGet]
         public ActionResult RenderQuiz(Test subjectTest)
         {
             materialNumber = Convert.ToInt16(Session["materialNumber"]);
             setCourseModulSubject(Convert.ToInt16(Session["subjectId"]));
-
-            if (Session["quizId"] != null)
-            {
-                ViewBag.Question = subjectTest.QuizeList[Convert.ToInt16(Session["quizId"])].QuestionText;
-                currentQuizId = Convert.ToInt16(Session["quizId"]);
-            }
-            else
-            {
-                currentQuizId = 0;
-                ViewBag.Question = subjectTest.QuizeList[currentQuizId].QuestionText;
-            }
-
-            Session["quizId"] = currentQuizId;
-            setViewBag_Quiz();
 
             if(subjectTest.TestType.Equals(TestType.Static))
                 return PartialView("Quizes/StaticQuiz", subjectTest);
@@ -160,23 +121,39 @@ namespace AspNetMvcTutorial.Controllers
         {
             setCourseModulSubject((Int16)Session["subjectId"]);
             
-            Quiz currentQuize = subject.SubjectTest.QuizeList[Convert.ToInt16(Session["quizId"])];
+            List<Quiz> quizeList = subject.SubjectTest.QuizeList;
             int i=0;
-            int corCnt = currentQuize.Answers.FindAll(a => a.Correct.Equals(true)).Count;
+            int corCnt = 0;
+            int qAcc = 0;
+            foreach(Quiz quest in quizeList){ corCnt += quest.Answers.FindAll(a => a.Correct == true).Count; }
 
-            if (userAnswer.Length == corCnt)
+            int qID = 0;
+
+            if (userAnswer.Length >0 ) // <= corCnt)
             {
-                for (int id = 0; id < userAnswer.Length; id++)
+                while (qID <= quizeList.Count-1)
                 {
-                    foreach(Answer correctAns in currentQuize.Answers.FindAll(a => a.Correct.Equals(true)))
+                    qAcc += quizeList[qID].Answers.FindAll(a => a.Correct.Equals(true)).Count;
+                
+                    foreach (Answer correctAns in quizeList[qID].Answers.FindAll(a => a.Correct.Equals(true)))
                     {
-                        if (userAnswer[id].Equals(correctAns.Name))
-                            i++;
+                        for (int id = 0; id < userAnswer.Length; id++)
+                        {
+                            if (Convert.ToInt32(userAnswer[id].Split('_')[0]).Equals(quizeList[qID].Number) &&
+                                userAnswer[id].Split('_')[1].Equals(correctAns.Name))
+                            {
+                                i++;
+                                if (i == qAcc)
+                                    break;
+                            }
+                        }
                     }
+                    qID++;
                 }
             }
+            
 
-            Console.Out.WriteLine("Score result "+ i + "/" +  currentQuize.Answers.Count);
+            Console.Out.WriteLine("Score result "+ i + "/" +  corCnt);
 
             if (i == corCnt)
             {
@@ -199,17 +176,20 @@ namespace AspNetMvcTutorial.Controllers
                     userTests.subjectTestHistory.Add(tScore);
                 }
                 Session["UserTestHistory"] = userTests;
+                if(course.CourseModules.Count ==  module.ModuleSubjects.Count)
+                    Console.Out.WriteLine("Score result " + i + "/" + corCnt);
 
-                if ((subject.SubjectTest.QuizeList.Count > 1) && (((Int16)currentQuizId + 1) < subject.SubjectTest.QuizeList.Count))
-                    return Redirect(String.Format("/Course/RenderQuizPage/{0}/{1}/{2}",
-                                new String[] { courseId.ToString(), moduleId.ToString(), ((Int16)currentQuizId + 1).ToString() }));
+                if (module.ModuleSubjects.Count > 1 && module.ModuleSubjects.Count > moduleId + 1)
+                    return Redirect(String.Format("/Course/Subject/{0}/{1}",
+                                new String[] { (moduleId+1).ToString(), "1"}));
                 else
-                    return Redirect(String.Format("/Course/Main/{0}", new String[] { moduleId.ToString() }));
+                    return Redirect(String.Format("/Course/Main/{0}", new String[] { courseId.ToString() }));
             }
             else
             {
                 ViewBag.ReturnMessage = "Nie poprawna odpowiedź, bądź podałeś nie pełny wynik.<br />Spróbuj ponownie!";
-                return Redirect(Request.UrlReferrer.ToString());
+                return Redirect(String.Format("/Course/Subject/{0}/{1}",
+                                new String[] { courseId.ToString(), (moduleId+1).ToString()}));
             }
         }
 
