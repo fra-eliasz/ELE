@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2012 for Web
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetMvcTutorial", "AspNetMvcTutorial\AspNetMvcTutorial.csproj", "{D2444F97-34B9-448E-BA88-B3B9F38F7903}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetMvcTutorial.Tests", "AspNetMvcTutorial.Tests\AspNetMvcTutorial.Tests.csproj", "{2DBCB662-DF52-4C81-B5AB-D47BAF174CEE}"

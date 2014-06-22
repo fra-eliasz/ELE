@@ -24,6 +24,12 @@ namespace AspNetMvcTutorial
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional, number = UrlParameter.Optional }
             );
 
+            routes.MapRoute(
+                name: "SubjectQuiz",
+                url: "{controller}/{action}/{subjectID}/{number}/{quizId}",
+                defaults: new { controller = "Subject", action = "RenderQuizPage", subjectID = UrlParameter.Optional, number = UrlParameter.Optional, quizId = UrlParameter.Optional }
+            );
+
         }
     }
 }

@@ -129,6 +129,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Entity\Material.cs" />
+    <Compile Include="Models\Entity\TestScore.cs" />
+    <Compile Include="Models\Entity\UserTestHistory.cs" />
     <Compile Include="Models\ProjectFactory.cs" />
     <Compile Include="Models\Entity\Answer.cs" />
     <Compile Include="Models\Entity\Module.cs" />

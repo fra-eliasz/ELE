@@ -23,12 +23,8 @@ namespace AspNetMvcTutorial.Models
         public TestType TestType { set; get; }
 
         [Required]
-        public List<Quiz> TestQuizzes { set; get; }
+        public List<Quiz> QuizeList { set; get; }
         
-        Int16 Score { set; get; }
-        
-        Decimal ScorePercent { set; get; }
-
         public Test(String tName, Int16 tGrNo, TestType tType)
         {
             this.Name = tName;

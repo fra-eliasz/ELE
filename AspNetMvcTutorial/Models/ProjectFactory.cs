@@ -52,8 +52,13 @@ namespace AspNetMvcTutorial.Models
                                                          new Answer("B", "1996, 2002, 2008", true), 
                                                          new Answer("C","1996, 2000, 2008", false), 
                                                          new Answer("D", "1998, 2002, 2008", false) });
+            Quiz q2 = new Quiz(2, "Pytanie o funkcję kontrolera", "Która warstwa architektury MVC odpowiada za reagowanie na akcje użytkownika?",
+                new List<Answer>() { new Answer("1", "Model", false), 
+                                                new Answer("2", "Kontroler", true), 
+                                                new Answer("3", "Widok", false) });
+            test.QuizeList = new List<Quiz>() { q1, q2 };
 
-            test.TestQuizzes = new List<Quiz>() { q1 };
+            test.QuizeList = new List<Quiz>() { q1 };
             s1.SubjectTest = test;
             Subject s2 = new Subject(2, 2, "Architektura MVC");
             mt = new Material(1, "", "", @"
@@ -77,7 +82,7 @@ namespace AspNetMvcTutorial.Models
                                                 new Answer("B", "Kontroler", true), 
                                                 new Answer("C", "Widok", false) });
 
-            test.TestQuizzes = new List<Quiz>() { q1 };
+            test.QuizeList = new List<Quiz>() { q1 };
             s2.SubjectTest = test;
 
             Subject s3 = new Subject(3, 3, "Instalacja narzędzi");
