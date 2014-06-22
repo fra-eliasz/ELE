@@ -48,16 +48,17 @@ namespace AspNetMvcTutorial.Models
             s1.SubjectMaterials = new List<MaterialBase>() { mt };
             Test test = new Test(s1.Name, 1, TestType.Static);
             Quiz q1 = new Quiz(1, "Lata wydania platform", "W jakich latach nastąpiło wydanie przez firmę Microsoft kolejnych kluczowych platform tworzenia aplikacji internetowych?", 
-                                    new List<Answer>() { new Answer("1", "1992, 2000, 2005", false), 
-                                                         new Answer("2", "1996, 2002, 2008", true), 
-                                                         new Answer("3","1996, 2000, 2008", false), 
-                                                         new Answer("4", "1998, 2002, 2008", false) });
+
+                                    new List<Answer>() { new Answer("A", "1992, 2000, 2005", false), 
+                                                         new Answer("B", "1996, 2002, 2008", true), 
+                                                         new Answer("C","1996, 2000, 2008", false), 
+                                                         new Answer("D", "1998, 2002, 2008", false) });
             Quiz q2 = new Quiz(2, "Pytanie o funkcję kontrolera", "Która warstwa architektury MVC odpowiada za reagowanie na akcje użytkownika?",
-                            new List<Answer>() { new Answer("1", "Model", false), 
+                new List<Answer>() { new Answer("1", "Model", false), 
                                                 new Answer("2", "Kontroler", true), 
                                                 new Answer("3", "Widok", false) });
             test.QuizeList = new List<Quiz>() { q1, q2 };
-            
+
             s1.SubjectTest = test;
             Subject s2 = new Subject(2, 2, "Architektura MVC");
             mt = new Material(1, "", "", @"
@@ -86,16 +87,86 @@ namespace AspNetMvcTutorial.Models
 
             Subject s3 = new Subject(3, 3, "Instalacja narzędzi");
             mt = new Material(1, "", "", @"
+            Składniki oprogramowania wymagane do tworzenia aplikacji w technologii ASP.NET MVC to: <br /><br />
+            - środowisko Visual Studio lub Visual Web Developer (wersja 2010, 2012 lub 2013)<br />
+            - aplikacja PowerShell 2.0<br />
+            - platforma ASP.NET MVC<br /><br />
+            Wszystkie potrzebne programy można pobrać ze stron firmy Microsoft: <a href=""http://asp.net/downloads"" style=""text-decoration: underline"">http://asp.net/downloads</a>
             ");
             s3.SubjectMaterials = new List<MaterialBase>() { mt };
             Subject s4 = new Subject(4, 4, "Tworzenie aplikacji");
+            s4.SubjectMaterials = new List<MaterialBase>();
             mt = new Material(1, "", "", @"
+            <b>Szablony projektów</b><br/><br/>
+            Podczas tworzenia nowej aplikacji ASP.NET MVC mamy do wyboru kilka szablonów projektów:<br/><br/>
+            - <b>Pusta</b>: tworzy aplikację ze strukturą katalogów, referencjami do bibliotek ASP.NET MVC oraz bibliotekami JavaScript, domyślnym układem widoku
+              i plikiem Global.asax ze standardową konfiguracją aplikacji<br/>
+            - <b>Podstawowe</b>: zawiera tylko strutkturę katalogów i referecnje do bibliotek ASP.NET MVC - jest to szablon miminalny<br/>
+            - <b>Aplikacja internetowa</b> - stanowi rozszerzenie szablonu Pusta, zawiera kontroler domyślny <i>HomeController</i> oraz kontroler <i>AccountController</i>
+              obsługujący rejestrację i logowanie użytkowników, a ponadto widoki dla obu kontrolerów<br/>
+            - <b>Aplikacja intranetowa</b> - podobny do szablony Aplikacji Internetowej, ale z konfiguracją zawierającą uwierzytelnianie oparte na Windows<br/>
+            - <b>Aplikacja dla urządzeń przenośnych</b> - wersja szablonu Aplikacji Internetowej zoptymalizowana pod aplikacje dla urządzeń mobilnych i wykorzystująca
+              bibliotekę jQuery Mobile<br/>
+            - <b>Interfejs WebApi</b> - zawiera wstępnie skonfigurowany kontroler dla WebApi, czyli nowej lekkiej platformy usług sieciowych RESTful HTTP<br/>
+            <a href=""/Content/multimedia/TworzenieAplikacjiAspNetMvc/index.html"" target=""_new"" style=""text-decoration:underline"">
+                <table border=""0""><tr>
+                <td width=""32"" style=""padding: 3px""><img src=""/Content/images/video_camera.png""/></td>
+                <td valign=""middle"">Obejrzyj prezentację procesu tworzenia nowej aplikacji ASP.NET MVC</td>
+                </tr></table>
+            </a>
             ");
-            s4.SubjectMaterials = new List<MaterialBase>() { mt };
+            s4.SubjectMaterials.Add(mt);
+            mt = new Material(2, "", "", @"
+            <b>NuGet - narzędzie do zarządzania pakietami</b><br /><br />
+            Menedżer pakietów NuGet jest jedną z nowości w projektach ASP.NET MVC 4. Jego głównym zadaniem jest zarządzanie zależnościami pomiędzy bibliotekami
+            używanymi w projekcie. Dana biblioteka może zależeć od innej biblioteki, w dodatku od jej konkretnej wersji. NuGet sprawdza te wszystkie skomplikowane
+            zależności i gwarantuje, że właściwa wersja odpowiedniego podzespołu jest dostępna dla naszej aplikacji. Menedżera NuGet ma dwa podstawowe tryby obsługi:<br/><br/>
+            <b>Graficzny</b> - dostępny w Eksploratorze rozwiązania po kliknięciu projektu prawym przyciskiem myszy i wybraniu opcji ""Zarządzaj pakietami NuGet""<br/><br/>
+            <b>Konsola</b> - można ją wyświetlić po wybraniu menu Narzędza / Menedżer pakietów bibliotek / Konsola Menedżera pakietów. W konsoli możemy instalować
+            pakiety używając polecenia <i>Insall-Package</i>, np. aby zainstalować Entity Framework należy użyć polecenia <i>Install-Package EntityFramework</i>.
+            ");
+            s4.SubjectMaterials.Add(mt);
+            mt = new Material(3, "", "", @"
+            <b>Konwencja przed konfiguracją</b>
+
+            ");
+            s4.SubjectMaterials.Add(mt);
+            mt = new Material(4, "", "", @"
+            <b>Routing</b>
+            ");
+            s4.SubjectMaterials.Add(mt);
+            mt = new Material(5, "", "", @"
+            <b>Kontrolery</b>
+            ");
+            s4.SubjectMaterials.Add(mt);
+            mt = new Material(6, "", "", @"
+            <b>Obiekt ActionResult</b>
+            ");
+            s4.SubjectMaterials.Add(mt);
+            mt = new Material(7, "", "", @"
+            <b>Parametry i dołączanie modelu</b>
+            ");
+            s4.SubjectMaterials.Add(mt);            
             Subject s5 = new Subject(5, 5, "Widoki");
             mt = new Material(1, "", "", @"
             ");
-            s5.SubjectMaterials = new List<MaterialBase>() { mt };
+            s5.SubjectMaterials = new List<MaterialBase>();
+            mt = new Material(1, "", "", @"
+            <b>Podstawy składni Razor</b>
+            ");
+            s5.SubjectMaterials.Add(mt);
+            mt = new Material(2, "", "", @"
+            <b>Układy graficzne</b>
+            ");
+            s5.SubjectMaterials.Add(mt);
+            mt = new Material(3, "", "", @"
+            <b>Widoki częściowe</b>
+            ");
+            s5.SubjectMaterials.Add(mt);
+            mt = new Material(4, "", "", @"
+            <b>Wyświetlanie danych</b>
+            ");
+            s5.SubjectMaterials.Add(mt);
             Subject s6 = new Subject(6, 6, "Modele");
             mt = new Material(1, "", "", @"
             ");

@@ -21,7 +21,6 @@ namespace AspNetMvcTutorial.Controllers
         Int16 currentQuizId;
         UserTestHistory userTests;
 
-
         public CourseController()
         {
             materialNumber = -1;
@@ -39,7 +38,7 @@ namespace AspNetMvcTutorial.Controllers
             Course course = project.ProjectCourses.FirstOrDefault(c => c.ID == id);
 
             ViewBag.Title = "Kurs \"" + course.Name + "\"";
-            
+
             return View("Main", course);
         }
 
@@ -51,7 +50,7 @@ namespace AspNetMvcTutorial.Controllers
             course = project.ProjectCourses.FirstOrDefault(c => c.ID == courseId);
             ViewBag.CourseName = course.Name;
             ViewBag.CourseId = course.ID;
-            
+
             module = course.CourseModules.FirstOrDefault(m => m.ID == id);
 
             ViewBag.Title = "Kurs \"" + course.Name + "\"";

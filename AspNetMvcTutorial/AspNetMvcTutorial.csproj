@@ -150,6 +150,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\images\back.png" />
+    <Content Include="Content\images\next.png" />
+    <Content Include="Content\images\video_camera.png" />
+    <Content Include="Content\multimedia\TworzenieAplikacjiAspNetMvc\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="Content\multimedia\TworzenieAplikacjiAspNetMvc\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <Content Include="Content\multimedia\TworzenieAplikacjiAspNetMvc\tworzenie_projektu_aspnet_mvc.swf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\platform.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
