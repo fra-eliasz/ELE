@@ -76,7 +76,7 @@ namespace AspNetMvcTutorial.Controllers
             ViewBag.DoTest = ViewBag.MaterialNumber == ViewBag.MaterialCount + 1;
 
             ViewBag.Title = "Kurs \"" + course.Name + "\"";
-
+            
             return View("Subject", subject);
         }
 
