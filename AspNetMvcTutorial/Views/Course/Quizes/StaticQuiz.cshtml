@@ -26,8 +26,7 @@
                    @for (var i = 0; i < question.Answers.Count; i++)
                    {
 
-                       @Html.Raw(question.Answers[i].Name + ". ")
-                       @Html.Raw(question.Answers[i].AnswerText + " ")
+                       @Html.Raw(question.Answers[i].Name + ". ")                       
                        var userAnswers = ViewBag.UserAnswers;    
                        bool isChecked = userAnswers == null ? false : userAnswers.ContainsKey(question.Number) && userAnswers[question.Number].Contains(question.Answers[i].Name);
                        @Html.ValuedCheckBox(
@@ -35,6 +34,7 @@
                          question.Number + "_" + question.Answers[i].Name,                       
                          isChecked
                        )
+                       @Html.Raw(" " + question.Answers[i].AnswerText + " ")
                        <br />
                    }
                    <br />            
