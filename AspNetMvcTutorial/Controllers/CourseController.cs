@@ -85,6 +85,7 @@ namespace AspNetMvcTutorial.Controllers
             ViewBag.DoTest = (ViewBag.MaterialNumber == ViewBag.MaterialCount + 1);
             
             ViewBag.Title = "Kurs \"" + course.Name + "\"";
+
         }
 
         private void setCourseModulSubject(Int16 id)
@@ -108,6 +109,9 @@ namespace AspNetMvcTutorial.Controllers
         {
             materialNumber = Convert.ToInt16(Session["materialNumber"]);
             setCourseModulSubject(Convert.ToInt16(Session["subjectId"]));
+            
+            if (Session["ReturnMessage"] != null)
+                ViewBag.ReturnMessage = Session["ReturnMessage"];
 
             if(subjectTest.TestType.Equals(TestType.Static))
                 return PartialView("Quizes/StaticQuiz", subjectTest);
@@ -187,7 +191,7 @@ namespace AspNetMvcTutorial.Controllers
             }
             else
             {
-                ViewBag.ReturnMessage = "Nie poprawna odpowiedź, bądź podałeś nie pełny wynik.<br />Spróbuj ponownie!";
+                Session["ReturnMessage"] = "Nie poprawna odpowiedź, bądź podałeś nie pełny wynik.<br />Spróbuj ponownie!";
                 return Redirect(String.Format("/Course/Subject/{0}/{1}",
                                 new String[] { courseId.ToString(), (moduleId+1).ToString()}));
             }

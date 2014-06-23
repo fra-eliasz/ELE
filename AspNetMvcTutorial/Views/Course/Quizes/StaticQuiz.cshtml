@@ -24,8 +24,8 @@
                    </div>
            </fieldset>
            }
-           <input type="submit" style="font-size: 1em; font-weight: normal" value="Check" /> 
-        }       
-        <p style="color:red">@Html.Raw(ViewBag.ReturnMessage)</p>
+           <input type="submit" style="font-size: 1em; font-weight: normal" value="Check" />        
+           <div id="errorMessage" style="color:red">@Html.Raw(ViewBag.ReturnMessage)</div>
+        }
     }
     
