@@ -1,29 +1,31 @@
 ﻿@model AspNetMvcTutorial.Models.Test
-
     <br />
     <br />
     @{
-        if (Model.TestQuizzes.Count>0) {
-            using(Html.BeginForm("AnswerQuiz", "Course", FormMethod.Post))
-            {
-                <fieldset>
-                    @foreach(var quiz in Model.TestQuizzes) 
-                    {
-                        <div class="quizContent">                            
-                            @Html.Raw(quiz.QuestionText)
-                            <br /><br />
-                            @for(var i = 0; i<quiz.Answers.Count ; i ++) {
-                                @Html.Raw(quiz.Answers[i].Name + ". ")                  
-                                @Html.Raw(quiz.Answers[i].AnswerText + " ")
-                                @Html.ValuedCheckBox("userAnswer", i.ToString())
-                                <br />
-                            }
-                            <br />            
-                        </div>
-                    }
-                </fieldset>
-                <input type="submit" style="font-size: 1em; font-weight: normal" value="Sprawdź wynik" onclick="alert('Opcja w przygotowaniu');" /> 
-            }
-        }       
-    }   
+       using (Html.BeginForm("AnswerQuiz", "Course", FormMethod.Post))
+       {
+           foreach(AspNetMvcTutorial.Models.Quiz question in Model.QuizeList)
+           {
+           <fieldset>
+               <div class="quizContent">
+                   @Html.Raw("Pytanie: " + question.Name + ". ")
+                   <br />
+                   @Html.Raw(question.QuestionText)
+                   <br /><br />
+                   
+                   @for (var i = 0; i < question.Answers.Count; i++)
+                   {
+                       @Html.Raw(question.Answers[i].Name + ". ")
+                       @Html.Raw(question.Answers[i].AnswerText + " ")
+                       @Html.ValuedCheckBox("userAnswer", question.Number + "_" + question.Answers[i].Name)
+                       <br />
+                   }
+                   <br />            
+                   </div>
+           </fieldset>
+           }
+           <input type="submit" style="font-size: 1em; font-weight: normal" value="Check" />        
+           <div id="errorMessage" style="color:red">@Html.Raw(ViewBag.ReturnMessage)</div>
+        }
+    }
     
