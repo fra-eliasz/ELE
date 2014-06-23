@@ -9,10 +9,11 @@ namespace AspNetMvcTutorial.Code
 {
     public static class InputHtmlHelper
     {
-        public static IHtmlString ValuedCheckBox(this HtmlHelper helper, string name, string value)
+        public static IHtmlString ValuedCheckBox(this HtmlHelper helper, string name, string value, bool isChecked)
         {
-            string html = @"<input type=""checkbox"" name=""{0}"" value=""{1}""/>";
-            return helper.Raw(String.Format(html, name, value));
+            string checkedStr = isChecked ? "checked=\"checked\"" : "";
+            string html = @"<input type=""checkbox"" name=""{0}"" value=""{1}"" {2}/>";
+            return helper.Raw(String.Format(html, name, value, checkedStr));
         }
     }
 }

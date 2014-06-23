@@ -1,31 +1,51 @@
 ﻿@model AspNetMvcTutorial.Models.Test
     <br />
     <br />
+    <div class="testContent">
     @{
+       
        using (Html.BeginForm("AnswerQuiz", "Course", FormMethod.Post))
        {
-           foreach(AspNetMvcTutorial.Models.Quiz question in Model.QuizeList)
+           foreach(AspNetMvcTutorial.Models.Quiz question in Model.TestQuizzes)
            {
            <fieldset>
-               <div class="quizContent">
-                   @Html.Raw("Pytanie: " + question.Name + ". ")
-                   <br />
-                   @Html.Raw(question.QuestionText)
+               <div class="quizContent">                                      
+                   @{                  
+                       var wrongAnswers = ViewBag.WrongAnswers;
+                       bool wrongAnswer = wrongAnswers != null && wrongAnswers.ContainsKey(question.Number);                       
+                       if (wrongAnswer) {
+                           @Html.Raw("<span class=\"wrongAnswer\">");
+                       }
+                       @Html.Raw("<b>" + question.Number.ToString() + ". " + question.QuestionText + "</b>");
+                       if (wrongAnswer) {
+                           @Html.Raw("</span>");
+                       }
+                   }
                    <br /><br />
-                   
+
                    @for (var i = 0; i < question.Answers.Count; i++)
                    {
+
                        @Html.Raw(question.Answers[i].Name + ". ")
                        @Html.Raw(question.Answers[i].AnswerText + " ")
-                       @Html.ValuedCheckBox("userAnswer", question.Number + "_" + question.Answers[i].Name)
+                       var userAnswers = ViewBag.UserAnswers;    
+                       bool isChecked = userAnswers == null ? false : userAnswers.ContainsKey(question.Number) && userAnswers[question.Number].Contains(question.Answers[i].Name);
+                       @Html.ValuedCheckBox(
+                         "userSelections", 
+                         question.Number + "_" + question.Answers[i].Name,                       
+                         isChecked
+                       )
                        <br />
                    }
                    <br />            
                    </div>
            </fieldset>
            }
-           <input type="submit" style="font-size: 1em; font-weight: normal" value="Check" />        
-           <div id="errorMessage" style="color:red">@Html.Raw(ViewBag.ReturnMessage)</div>
+           <input type="submit" style="font-size: 1em; font-weight: normal" value="Sprawdź wynik" />        
+           <br /><br />
+           <div id="testResultMessage">@Html.Raw(ViewBag.ReturnMessage)</div>
         }
+        
     }
+    </div>
     

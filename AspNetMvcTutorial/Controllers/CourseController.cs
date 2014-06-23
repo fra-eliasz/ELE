@@ -109,9 +109,23 @@ namespace AspNetMvcTutorial.Controllers
         {
             materialNumber = Convert.ToInt16(Session["materialNumber"]);
             setCourseModulSubject(Convert.ToInt16(Session["subjectId"]));
-            
+
             if (Session["ReturnMessage"] != null)
+            {
                 ViewBag.ReturnMessage = Session["ReturnMessage"];
+                Session["ReturnMessage"] = null;
+            }
+
+            if (Session["UserAnswers"] != null)
+            {
+                ViewBag.UserAnswers = Session["UserAnswers"];
+                Session["UserAnswers"] = null;
+            }
+            if (Session["WrongAnswers"] != null)
+            {
+                ViewBag.WrongAnswers = Session["WrongAnswers"];
+                Session["WrongAnswers"] = null;
+            }
 
             if(subjectTest.TestType.Equals(TestType.Static))
                 return PartialView("Quizes/StaticQuiz", subjectTest);
@@ -121,11 +135,64 @@ namespace AspNetMvcTutorial.Controllers
         }
 
         [HttpPost]
-        public ActionResult AnswerQuiz(string [] userAnswer)
+        public ActionResult AnswerQuiz(string [] userSelections)
         {
             setCourseModulSubject((Int16)Session["subjectId"]);
-            
-            List<Quiz> quizeList = subject.SubjectTest.QuizeList;
+            List<Quiz> quizzes = subject.SubjectTest.TestQuizzes;
+
+            Dictionary<int, List<string>> userAnswers = new Dictionary<int, List<string>>();
+
+            if (userSelections != null)
+            {
+                foreach (string userSelection in userSelections)
+                {
+                    string[] items = userSelection.Split('_');
+                    int quizNo = Convert.ToInt32(items[0]);
+                    string answerCode = items[1];
+                    if (!userAnswers.ContainsKey(quizNo))
+                        userAnswers[quizNo] = new List<string>();
+                    userAnswers[quizNo].Add(answerCode);
+                }
+            }
+
+            Dictionary<int, List<string>> wrongAnswers = new Dictionary<int, List<string>>();
+
+            foreach (Quiz quiz in quizzes)
+            {
+                foreach (Answer answer in quiz.Answers)
+                {
+                    bool userCheckedThisAnswer = userAnswers.ContainsKey(quiz.Number) && userAnswers[quiz.Number].Contains(answer.Name);
+                    if (userCheckedThisAnswer != answer.Correct)
+                    {
+                        if (!wrongAnswers.ContainsKey(quiz.Number))                        
+                            wrongAnswers[quiz.Number] = new List<string>();
+                        wrongAnswers[quiz.Number].Add(answer.Name);                        
+                    }
+                }
+            }
+
+            if (wrongAnswers.Keys.Count() == 0)
+            {
+                // 100% poprawny wynik testu
+                Session["ReturnMessage"] = "<span class=\"testResultOk\">Wynik: 100% poprawnych odpowiedzi. Gratulujemy!</span>";
+            }
+            else
+            {
+                // były błędy w odpowiedziach, informujemy o nich                
+                int total = quizzes.Count();
+                int wrong =  wrongAnswers.Keys.Count();
+                int good = total - wrong;
+                decimal percentResult = (decimal)good / (decimal)total * 100;
+                Session["ReturnMessage"] = "<span class=\"testResultErrors\">Wynik: " + ((int)percentResult).ToString() + "%.  Nieprawidłowe odpowiedzi w pytani" + (wrong == 1 ? "u: " : "ach: ") + String.Join(", ", wrongAnswers.Keys.ToArray()) + " . Spróbuj ponownie!</span>";
+            }
+
+            Session["UserAnswers"] = userAnswers;
+            Session["WrongAnswers"] = wrongAnswers;
+
+            return Redirect(String.Format("/Course/Subject/{0}/{1}",subject.ID, subject.SubjectMaterials.Count() + 1));                
+
+
+            /*
             int i=0;
             int corCnt = 0;
             int qAcc = 0;
@@ -133,6 +200,7 @@ namespace AspNetMvcTutorial.Controllers
 
             int qID = 0;
 
+            
             if (userAnswer.Length >0 ) // <= corCnt)
             {
                 while (qID <= quizeList.Count-1)
@@ -191,10 +259,13 @@ namespace AspNetMvcTutorial.Controllers
             }
             else
             {
-                Session["ReturnMessage"] = "Nie poprawna odpowiedź, bądź podałeś nie pełny wynik.<br />Spróbuj ponownie!";
+                Session["ReturnMessage"] = "Nieprawidłowa odpowiedź, bądź podałeś nie pełny wynik.<br />Spróbuj ponownie!";
                 return Redirect(String.Format("/Course/Subject/{0}/{1}",
                                 new String[] { courseId.ToString(), (moduleId+1).ToString()}));
             }
+            */
+
+            return View();
         }
 
     }

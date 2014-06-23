@@ -41,8 +41,34 @@
     padding: 5px;
 }
 
+.testContent {    
+    background: #fffffa;
+    border: 1px dotted gray;
+    padding: 5px;
+}
+
 .subjectNavigation {
     display: inline-block;
     float: right; 
     text-align: right;
+}
+
+.testResultOk {
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    margin-bottom:5px;
+}
+
+.testResultErrors {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 5px;
+    margin-bottom:5px;
+}
+
+.wrongAnswer {
+    color: red;
 }
