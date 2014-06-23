@@ -436,6 +436,7 @@ namespace AspNetMvcTutorial.Models
             Course c2 = new Course(2, "Zaawansowane programowanie w języku JavaScript");
             c2.ID = 2;
             c2.EstimatedDuration = 8;
+            c2.CourseModules = new List<Module>();                 
 
             p.ProjectCourses = new List<Course>() { c1, c2 };
 
